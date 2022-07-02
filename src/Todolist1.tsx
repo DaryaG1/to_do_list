@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {FilterType} from "./App";
+import Button from "./components/Button";
 
 type propsType = {
     title: string
@@ -37,7 +38,7 @@ const onClickRemoveHandler = (id:string)=>{
             <li key={t.id}>
                 <input type="checkbox" checked={t.isDone}/>
                 <span>{t.title}</span>
-                <button onClick={()=>onClickRemoveHandler(t.id)}> X</button>
+                <Button name={' X '} callBack={()=>onClickRemoveHandler(t.id)}/>
             </li>
         )
     })
@@ -62,15 +63,15 @@ const onClickRemoveHandler = (id:string)=>{
         <h3>{props.title}</h3>
         <div>
             <input value={title} onChange={onChangeHelder} onKeyPress={onKeyPressHelder}/>
-            <button onClick={onClickHandler}>+</button>
+            <Button name={'+'} callBack={()=>onClickHandler()}/>
         </div>
         <ul>
             {TaskElements}
         </ul>
         <div>
-            <button onClick={()=>onClickFilterHandler('All')}>All</button>
-            <button onClick={()=>onClickFilterHandler('Active')}>Active</button>
-            <button onClick={()=>onClickFilterHandler('Completed')}>Completed</button>
+            <Button name = {'all'} callBack={()=>onClickFilterHandler('All')}/>
+            <Button name = {'active'} callBack={()=>onClickFilterHandler('Active')}/>
+            <Button name = {'completed'} callBack={()=>onClickFilterHandler('Completed')}/>
         </div>
     </div>
 }
