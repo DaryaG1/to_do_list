@@ -66,6 +66,7 @@ const onClickRemoveHandler = (id:string)=>{
             <Button name={'+'} callBack={()=>onClickHandler()}/>
         </div>
         <ul>
+
             {TaskElements}
         </ul>
         <div>
