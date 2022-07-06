@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {FilterType} from "./App";
 import Button from "./components/Button";
+import s from './todolist.module.css'
 
 type propsType = {
     title: string
@@ -17,6 +18,7 @@ type TaskType = {
 }
 
 export function Todolist(props: propsType) {
+    const [error, seterror] = useState(false)
     const [filter, setFilter] = useState<FilterType>('All')
 
     let Filtered = props.tasks
@@ -34,6 +36,8 @@ export function Todolist(props: propsType) {
 const onClickRemoveHandler = (id:string)=>{
     props.removeTasks(id)
 }
+    
+
 const changeCheckBoxHandler=(tID:string,e:boolean)=>{
     props.checkBox(tID,e)
 }
@@ -48,12 +52,20 @@ const changeCheckBoxHandler=(tID:string,e:boolean)=>{
         )
     })
     const [title, setTitle] = useState('')
+
     const onChangeHelder = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.currentTarget.value)
+        setTitle(event.currentTarget.value);
+        seterror(false)
     }
     const onClickHandler = () => {
-        props.addTask(title)
-        setTitle(' ')
+        if (title.trim() !== ''){
+            props.addTask(title.trim());
+            setTitle('');
+
+        } else{
+            seterror(true)
+        }
+
     }
 
     const onClickFilterHandler = (value:FilterType) => {
@@ -67,8 +79,9 @@ const changeCheckBoxHandler=(tID:string,e:boolean)=>{
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input value={title} onChange={onChangeHelder} onKeyPress={onKeyPressHelder}/>
-            <Button name={'+'} callBack={()=>onClickHandler()}/>
+            <input value={title} onChange={onChangeHelder} onKeyPress={onKeyPressHelder} className={error ? s.error : ''}/>
+            <Button name={'+'} callBack={()=> onClickHandler()}/>
+            {error && <div className={s.errorMassage}>Title is required</div>}
         </div>
         <ul>
 

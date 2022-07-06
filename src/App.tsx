@@ -25,10 +25,6 @@ function App() {
 setTasks(tasks.map(el=>el.id===tID ? {...el, isDone: value} : el))
     }
 
-    function changeStatus(taskId: string, isDone: boolean) {
-        let task = tasks.find((t => t.id === taskId))
-    }
-
     return (
         <div className="App">
             <Todolist
