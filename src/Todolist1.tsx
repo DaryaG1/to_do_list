@@ -18,7 +18,7 @@ type TaskType = {
 }
 
 export function Todolist(props: propsType) {
-    const [error, seterror] = useState(false)
+    const [error, seterror] = useState<string|null>(null)
     const [filter, setFilter] = useState<FilterType>('All')
 
     let Filtered = props.tasks
@@ -55,7 +55,7 @@ const changeCheckBoxHandler=(tID:string,e:boolean)=>{
 
     const onChangeHelder = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value);
-        seterror(false)
+        seterror(null)
     }
     const onClickHandler = () => {
         if (title.trim() !== ''){
@@ -63,7 +63,7 @@ const changeCheckBoxHandler=(tID:string,e:boolean)=>{
             setTitle('');
 
         } else{
-            seterror(true)
+            seterror('Title is required')
         }
 
     }
@@ -81,7 +81,7 @@ const changeCheckBoxHandler=(tID:string,e:boolean)=>{
         <div>
             <input value={title} onChange={onChangeHelder} onKeyPress={onKeyPressHelder} className={error ? s.error : ''}/>
             <Button name={'+'} callBack={()=> onClickHandler()}/>
-            {error && <div className={s.errorMassage}>Title is required</div>}
+            {error && <div className={s.errorMassage}>{error}</div>}
         </div>
         <ul>
 
