@@ -52,6 +52,7 @@ function App() {
         setTodolist(todolist.map(tdl => tdl.id === todolistID ? {...tdl, filter: value} : tdl))
     }
 const removeTodolist=(todolistID:string)=>{
+        delete tasks[todolistID]
 setTodolist(todolist.filter(el=>el.id!==todolistID))
 }
 
